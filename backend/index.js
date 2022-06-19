@@ -10,5 +10,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`inotebook app listening on port http://localhost:${port}`);
+  console.log(`inotebook app listening on port https://localhost:${port}`);
 });
