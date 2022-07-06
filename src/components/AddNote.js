@@ -14,6 +14,11 @@ const AddNote = () => {
   const handleClick = (e) => {
     e.preventDefault();
     addNote(note.noteTitle, note.noteDescription, note.noteTag);
+    setNote({
+      noteTitle: "",
+      noteDescription: "",
+      noteTag: "",
+    });
   };
   const onChange = (e) => {
     setNote({
@@ -38,6 +43,7 @@ const AddNote = () => {
               name="noteTitle"
               aria-describedby="emailHelp"
               onChange={onChange}
+              value={note.noteTitle}
             />
           </div>
           <div className="mb-3">
@@ -50,6 +56,7 @@ const AddNote = () => {
               id="noteDescription"
               name="noteDescription"
               onChange={onChange}
+              value={note.noteDescription}
             />
           </div>
 
@@ -63,10 +70,14 @@ const AddNote = () => {
               id="noteTag"
               name="noteTag"
               onChange={onChange}
+              value={note.noteTag}
             />
           </div>
 
           <button
+            disabled={
+              note.noteTitle.length < 5 || note.noteDescription.length < 5
+            }
             type="submit"
             className="btn btn-primary"
             onClick={handleClick}

@@ -33,18 +33,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const json = response.json();
-    console.log(json);
-
-    const note = {
-      _id: "62b304as6fb8a342b8d64b19911",
-      user: "62b1cfa5e73eae59ecb85b5a4",
-      title: title,
-      description: description,
-      tag: tag,
-      date: "2022-06-22T12:00:47.660Z",
-      __v: 0,
-    };
+    const note = await response.json();
     setNotes(notes.concat(note));
   };
 
@@ -58,20 +47,23 @@ const NoteState = (props) => {
         "auth-token":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMWNmYTVlNzNlYWU1OWVjYjg1YjVhIn0sImlhdCI6MTY1NTgyMzM2OH0.SCsS3dDfgj9cAkRsAN58f4rQ9f150bsg5E31S8R6fBs",
       },
-      body: JSON.stringify({ title, description, tag }),
+      body: JSON.stringify({ id, title, description, tag }),
     });
-    const json = response.json();
+    const json = await response.json();
     console.log(json);
 
+    let newNotes = JSON.parse(JSON.stringify(notes));
     //logic to edit note in client
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
     }
+    setNotes(newNotes);
   };
 
   //delete a note
